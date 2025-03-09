@@ -1,5 +1,9 @@
 package org.example;
 
+import org.example.solid.voilation.Bird;
+import org.example.solid.voilation.BirdInterface;
+import org.example.solid.voilation.Crow;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -13,5 +17,14 @@ public class Main {
             // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
             System.out.println("i = " + i);
         }
+        Bird bird = new Bird();
+        bird.flying(Bird.birdType.CROW);
+        bird.makeSound(Bird.birdType.CROW);
+        //add getter setter to get and set the class/instance variables
+
+        BirdInterface birdInterfaceCrow = new Crow();
+        birdInterfaceCrow.flying(BirdInterface.birdType.CROW);
+        birdInterfaceCrow.makeSound(BirdInterface.birdType.CROW);
+        ((Crow) birdInterfaceCrow).getHeight();
     }
 }
