@@ -1,6 +1,11 @@
 package org.example.solid.voilation;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Bird {
+    private static final Logger logger = LogManager.getLogger(Bird.class);
+
     String color;
     int weight;
     int height;
@@ -13,19 +18,24 @@ public class Bird {
         DUCK
     }
 
+
+    // 2 methods break SRP as there are 2 reasons to change the class one for
+    // flying
+    // and
+    // one for sounds
     public void flying(birdType bT) {
         switch (bT) {
             case PIEGON:
-                System.out.println("Pigeon is flying");
+                logger.info("Pigeon is flying");
                 break;
             case CROW:
-                System.out.println("Crow is flying");
+                logger.info("Crow is flying");
                 break;
             case SPARROW:
-                System.out.println("Sparrow is flying");
+                logger.info("Sparrow is flying");
                 break;
             case DUCK:
-                System.out.println("Duck is flying");
+                logger.info("Duck is flying");
                 break;
         }
     }
@@ -33,16 +43,16 @@ public class Bird {
     public void makeSound(birdType bT) {
         switch (bT) {
             case PIEGON:
-                System.out.println("Coo coo"); // Corrected sound
+                logger.info("Coo coo"); // Corrected sound
                 break;
             case CROW:
-                System.out.println("Kaw kaw");
+                logger.info("Kaw kaw");
                 break;
             case SPARROW:
-                System.out.println("Chirp chirp"); // Corrected sound
+                logger.info("Chirp chirp"); // Corrected sound
                 break;
             case DUCK:
-                System.out.println("Quack quack"); // Corrected sound
+                logger.info("Quack quack"); // Corrected sound
                 break;
         }
     }
