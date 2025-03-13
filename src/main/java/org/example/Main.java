@@ -2,6 +2,8 @@ package org.example;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.designpatterns.creational.BookBuilderDesignPattern;
+import org.example.designpatterns.creational.BookWithoutBuilderDesignPattern;
 import org.example.solid.AbstractBird;
 import org.example.solid.lsp.Flyable;
 import org.example.solid.voilation.Bird;
@@ -9,11 +11,17 @@ import org.example.solid.voilation.BirdInterface;
 import org.example.solid.voilation.Crow;
 import org.example.solid.voilation.lsp.Penguin;
 
+import java.time.Year;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         final Logger logger = LogManager.getLogger(Main.class);
+
+        long maxMemory = Runtime.getRuntime().maxMemory();
+        logger.info("Xmx: " + maxMemory / (1024 * 1024) + " MB");
+
         //System.out.println(logger.getLevel());
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
@@ -66,5 +74,49 @@ public class Main {
         org.example.solid.interfacesp.Bird birSegregationSegregationCrow = new org.example.solid.interfacesp.Crow();
         birSegregationSegregationCrow.fly();
 
+
+        // Add DIP last principle call here for SOLID
+
+        // Add Singleton Design Pattern call here
+
+
+        // Builder Design Pattern
+
+        //Without Builder class
+        BookWithoutBuilderDesignPattern bookWithoutBuilderDesignPattern1 = new BookWithoutBuilderDesignPattern("12345678912", "Title", "Genre", "Auther", Year.now(), "Description");
+        logger.info(bookWithoutBuilderDesignPattern1.getIsbn());
+        logger.info(bookWithoutBuilderDesignPattern1.getTitle());
+        logger.info(bookWithoutBuilderDesignPattern1.getGenre());
+        logger.info(bookWithoutBuilderDesignPattern1.getAuthor());
+        logger.info(bookWithoutBuilderDesignPattern1.getPublished());
+        logger.info(bookWithoutBuilderDesignPattern1.getDescription());
+
+        //What if I want to set just few parameters here and not all at once?
+        //Should I create multiple constructors or telescopic constructors? then there would be lots of constructors
+        // mixing up of parameters if same datatype parameters are present in same constructor?
+        BookWithoutBuilderDesignPattern bookWithoutBuilderDesignPattern2 = new BookWithoutBuilderDesignPattern(null, "Title", "Genre", "Auther", Year.now(), "Description");
+        logger.info(bookWithoutBuilderDesignPattern2.getIsbn());
+        logger.info(bookWithoutBuilderDesignPattern2.getTitle());
+        logger.info(bookWithoutBuilderDesignPattern2.getGenre());
+        logger.info(bookWithoutBuilderDesignPattern2.getAuthor());
+        logger.info(bookWithoutBuilderDesignPattern2.getPublished());
+        logger.info(bookWithoutBuilderDesignPattern2.getDescription());
+
+        // Try validation before object creation?
+        BookWithoutBuilderDesignPattern bookWithoutBuilderDesignPattern3 = new BookWithoutBuilderDesignPattern();
+        try {
+            bookWithoutBuilderDesignPattern3.createObject("12345678912", "Title", "Genre", "Auther", Year.now(), "Description");
+        } catch (Exception e) {
+            logger.error("Error in Book object ", e);
+        }
+
+
+        BookBuilderDesignPattern bookBuilderDesignPattern1 = new BookBuilderDesignPattern.Builder("123456789012", "Title").build();
+        logger.info(bookBuilderDesignPattern1.getIsbn());
+        logger.info(bookBuilderDesignPattern1.getTitle());
+        logger.info(bookBuilderDesignPattern1.getGenre());
+        logger.info(bookBuilderDesignPattern1.getAuthor());
+        logger.info(bookBuilderDesignPattern1.getPublished());
+        logger.info(bookBuilderDesignPattern1.getDescription());
     }
 }
