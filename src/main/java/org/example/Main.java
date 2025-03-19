@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.designpatterns.creational.BookBuilderDesignPattern;
 import org.example.designpatterns.creational.BookWithoutBuilderDesignPattern;
+import org.example.designpatterns.creational.SingletonDesignPattern;
+import org.example.designpatterns.creational.SingletonDesignPatternSynchronized;
 import org.example.solid.AbstractBird;
 import org.example.solid.lsp.Flyable;
 import org.example.solid.voilation.Bird;
@@ -16,6 +18,8 @@ import java.time.Year;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+    private static final Logger log = LogManager.getLogger(Main.class);
+
     public static void main(String[] args) {
         final Logger logger = LogManager.getLogger(Main.class);
 
@@ -78,6 +82,27 @@ public class Main {
         // Add DIP last principle call here for SOLID
 
         // Add Singleton Design Pattern call here
+
+        // Will fail due to private constructor
+        //SingletonDesignPattern singletonDesignPattern = new SingletonDesignPattern();
+        SingletonDesignPattern singletonDesignPattern1 = SingletonDesignPattern.getInstance();
+        singletonDesignPattern1.printSingleton();
+        logger.info("Object hash code is "+singletonDesignPattern1.hashCode());
+        SingletonDesignPattern singletonDesignPattern2 = SingletonDesignPattern.getInstance();
+        logger.info("Object hash code is "+singletonDesignPattern2.hashCode());
+        logger.info(singletonDesignPattern1);
+        logger.info(singletonDesignPattern2);
+        logger.info(singletonDesignPattern1==singletonDesignPattern2);
+
+
+        SingletonDesignPatternSynchronized singletonDesignPatternSynchronized1 = SingletonDesignPatternSynchronized.getInstance();
+        singletonDesignPatternSynchronized1.printSingleton();
+        logger.info("Object hash code is "+singletonDesignPatternSynchronized1.hashCode());
+        SingletonDesignPatternSynchronized singletonDesignPatternSynchronized2 = SingletonDesignPatternSynchronized.getInstance();
+        logger.info("Object hash code is "+singletonDesignPatternSynchronized2.hashCode());
+        logger.info(singletonDesignPatternSynchronized1);
+        logger.info(singletonDesignPatternSynchronized2);
+        logger.info(singletonDesignPatternSynchronized1==singletonDesignPatternSynchronized2);
 
 
         // Builder Design Pattern
