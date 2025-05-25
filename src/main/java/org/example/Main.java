@@ -2,10 +2,7 @@ package org.example;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.designpatterns.creational.BookBuilderDesignPattern;
-import org.example.designpatterns.creational.BookWithoutBuilderDesignPattern;
-import org.example.designpatterns.creational.SingletonDesignPattern;
-import org.example.designpatterns.creational.SingletonDesignPatternSynchronized;
+import org.example.designpatterns.creational.*;
 import org.example.solid.AbstractBird;
 import org.example.solid.lsp.Flyable;
 import org.example.solid.voilation.Bird;
@@ -23,8 +20,9 @@ public class Main {
     public static void main(String[] args) {
         final Logger logger = LogManager.getLogger(Main.class);
 
-        long maxMemory = Runtime.getRuntime().maxMemory();
-        logger.info("Xmx: " + maxMemory / (1024 * 1024) + " MB");
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
 
         //System.out.println(logger.getLevel());
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
@@ -64,8 +62,7 @@ public class Main {
         org.example.solid.voilation.lsp.Bird birdPenguin = new Penguin();
         try {
             birdPenguin.fly();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Can Penguins fly, I did not see so in Bycalla zoo/Rani chi baug");
         }
 
@@ -86,23 +83,23 @@ public class Main {
         // Will fail due to private constructor
         //SingletonDesignPattern singletonDesignPattern = new SingletonDesignPattern();
         SingletonDesignPattern singletonDesignPattern1 = SingletonDesignPattern.getInstance();
-        singletonDesignPattern1.printSingleton();
-        logger.info("Object hash code is "+singletonDesignPattern1.hashCode());
+        SingletonDesignPattern.printSingleton();
+        logger.info("Object hash code is " + singletonDesignPattern1.hashCode());
         SingletonDesignPattern singletonDesignPattern2 = SingletonDesignPattern.getInstance();
-        logger.info("Object hash code is "+singletonDesignPattern2.hashCode());
+        logger.info("Object hash code is " + singletonDesignPattern2.hashCode());
         logger.info(singletonDesignPattern1);
         logger.info(singletonDesignPattern2);
-        logger.info(singletonDesignPattern1==singletonDesignPattern2);
+        logger.info(singletonDesignPattern1 == singletonDesignPattern2);
 
 
         SingletonDesignPatternSynchronized singletonDesignPatternSynchronized1 = SingletonDesignPatternSynchronized.getInstance();
-        singletonDesignPatternSynchronized1.printSingleton();
-        logger.info("Object hash code is "+singletonDesignPatternSynchronized1.hashCode());
+        SingletonDesignPatternSynchronized.printSingleton();
+        logger.info("Object hash code is " + singletonDesignPatternSynchronized1.hashCode());
         SingletonDesignPatternSynchronized singletonDesignPatternSynchronized2 = SingletonDesignPatternSynchronized.getInstance();
-        logger.info("Object hash code is "+singletonDesignPatternSynchronized2.hashCode());
+        logger.info("Object hash code is " + singletonDesignPatternSynchronized2.hashCode());
         logger.info(singletonDesignPatternSynchronized1);
         logger.info(singletonDesignPatternSynchronized2);
-        logger.info(singletonDesignPatternSynchronized1==singletonDesignPatternSynchronized2);
+        logger.info(singletonDesignPatternSynchronized1 == singletonDesignPatternSynchronized2);
 
 
         // Builder Design Pattern
@@ -143,5 +140,60 @@ public class Main {
         logger.info(bookBuilderDesignPattern1.getAuthor());
         logger.info(bookBuilderDesignPattern1.getPublished());
         logger.info(bookBuilderDesignPattern1.getDescription());
+
+
+        String query = SQLSelectWithWhereClauseQueryBuilder.builder()
+                .withSelectClause("name")
+                .withSelectClause("email")
+                .withFromClause("users")
+                .withFromClause("roles")
+                .withWhereClause("age > 18")
+                .withWhereClause("country = 'USA'")
+                .build();
+
+        logger.info("SQLSelectWithWhereClauseQueryBuilder query is " + query);
+
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
+
+        // Factory Design Pattern
+
+        FDPPaymentGatewayFactory factory = new FDPPayPalFactory();
+        FDPPaymentProcessor paymentProcessor = new FDPPaymentProcessor(factory);
+        Payment payment = new Payment("PayPal", 100.0, "USD");
+        paymentProcessor.processPayment(payment);
+        paymentProcessor.refundPayment(payment);
+
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
+
+        // Factory Design Pattern
+
+        ButtonFactoryPattern windowsButtonFactoryPattern = new WindowsButtonFactoryPattern();
+        windowsButtonFactoryPattern.paint();
+
+        ButtonFactoryPattern macButtonFactoryPattern = new MacButtonFactoryPattern();
+        macButtonFactoryPattern.paint();
+
+        CheckBoxFactoryDesignPattern windowsCheckBoxFactoryPattern = new WindowsCheckBoxFactoryDesignPattern();
+        windowsCheckBoxFactoryPattern.paint();
+
+        CheckBoxFactoryDesignPattern macCheckBoxFactoryPattern = new MacCheckBoxFactoryDesignPattern();
+        macCheckBoxFactoryPattern.paint();
+
+        // Abstract Factory Design Pattern
+        logger.info("Abstract factory start");
+
+        GUIAbstractFactoryDesignPattern windowsGUIAbstractFactoryDesignPattern = new WindowsGUIAbstractFactoryDesignPattern();
+        windowsGUIAbstractFactoryDesignPattern.createButton().paint();
+        windowsGUIAbstractFactoryDesignPattern.createCheckBox().paint();
+
+        GUIAbstractFactoryDesignPattern macGUIAbstractFactoryDesignPattern = new MacGUIAbstractFactoryDesignPattern();
+        macGUIAbstractFactoryDesignPattern.createButton().paint();
+        macGUIAbstractFactoryDesignPattern.createCheckBox().paint();
+
+
     }
 }
