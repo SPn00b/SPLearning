@@ -183,6 +183,10 @@ public class Main {
         CheckBoxFactoryDesignPattern macCheckBoxFactoryPattern = new MacCheckBoxFactoryDesignPattern();
         macCheckBoxFactoryPattern.paint();
 
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
+
         // Abstract Factory Design Pattern
         logger.info("Abstract factory start");
 
@@ -194,6 +198,104 @@ public class Main {
         macGUIAbstractFactoryDesignPattern.createButton().paint();
         macGUIAbstractFactoryDesignPattern.createCheckBox().paint();
 
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
 
+        // 1. Create the Prototype (original object)
+        DepartmentPrototypeShallow hrDept = new DepartmentPrototypeShallow("Human Resources", 101);
+        EmployeePrototypeShallow originalEmployee = new EmployeePrototypeShallow(1, "Alice Smith", hrDept);
+
+        logger.info("Original Employee (Prototype): " + originalEmployee);
+        logger.info("Original Employee Dept HashCode: " + hrDept.hashCode());
+
+        // 2. Client clones the prototype to create new objects
+        EmployeePrototypeShallow clonedEmployee1 = null;
+        EmployeePrototypeShallow clonedEmployee2 = null;
+
+        try {
+            clonedEmployee1 = (EmployeePrototypeShallow) originalEmployee.clone();
+            clonedEmployee2 = (EmployeePrototypeShallow) originalEmployee.clone();
+        } catch (CloneNotSupportedException e) {
+            logger.error("Cloning not supported: " + e.getMessage());
+        }
+
+        logger.info("\nCloned Employee 1: " + clonedEmployee1);
+        logger.info("Cloned Employee 1 Dept HashCode: " + clonedEmployee1.getDepartment().hashCode());
+
+        logger.info("Cloned Employee 2: " + clonedEmployee2);
+        logger.info("Cloned Employee 2 Dept HashCode: " + clonedEmployee2.getDepartment().hashCode());
+
+        // --- Demonstrating Shallow Clone Behavior ---
+        logger.info("\n--- Modifying Cloned Employee 1's Data ---");
+
+        // Modify a primitive field (or immutable String) - this is safe
+        clonedEmployee1.setId(2);
+        clonedEmployee1.setName("Bob Johnson");
+
+        // !!! IMPORTANT: Modify the shared Department object through clonedEmployee1
+        clonedEmployee1.getDepartment().setName("Marketing"); // Changes the original's department too!
+        clonedEmployee1.getDepartment().setDeptId(201); // Changes the original's department too!
+
+        logger.info("\nOriginal Employee after modifications: " + originalEmployee);
+        logger.info("Cloned Employee 1 after modifications: " + clonedEmployee1);
+        logger.info("Cloned Employee 2 after modifications: " + clonedEmployee2); // Shows shared change
+
+        logger.info("\nAre original and cloned department objects the same?");
+        logger.info("Original.dept == Cloned1.dept: " + (originalEmployee.getDepartment() == clonedEmployee1.getDepartment()));
+        logger.info("Cloned1.dept == Cloned2.dept: " + (clonedEmployee1.getDepartment() == clonedEmployee2.getDepartment()));
+
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
+
+
+        // 1. Create the Prototype (original object)
+        DepartmentPrototypeDeep hrDeptD = new DepartmentPrototypeDeep("Human Resources", 101);
+        EmployeePrototypeDeep originalEmployeeD = new EmployeePrototypeDeep(1, "Alice Smith", hrDeptD);
+
+        logger.info("Original Employee (Prototype): " + originalEmployeeD);
+        logger.info("Original Employee Dept HashCode: " + hrDeptD.hashCode());
+
+        // 2. Client clones the prototype to create new objects
+        EmployeePrototypeDeep clonedEmployee1D = null;
+        EmployeePrototypeDeep clonedEmployee2D = null;
+
+        try {
+            clonedEmployee1D = (EmployeePrototypeDeep) originalEmployeeD.clone();
+            clonedEmployee2D = (EmployeePrototypeDeep) originalEmployeeD.clone();
+        } catch (CloneNotSupportedException e) {
+            logger.error("Cloning not supported: " + e.getMessage());
+        }
+
+        logger.info("\nCloned Employee 1: " + clonedEmployee1D);
+        logger.info("Cloned Employee 1 Dept HashCode: " + clonedEmployee1D.getDepartment().hashCode());
+
+        logger.info("Cloned Employee 2: " + clonedEmployee2D);
+        logger.info("Cloned Employee 2 Dept HashCode: " + clonedEmployee2D.getDepartment().hashCode());
+
+        // --- Demonstrating Deep Clone Behavior ---
+        logger.info("\n--- Modifying Cloned Employee 1's Data ---");
+
+        // Modify a primitive field (or immutable String) - this is safe
+        clonedEmployee1D.setId(2);
+        clonedEmployee1D.setName("Bob Johnson");
+
+        // !!! IMPORTANT: Modify the Department object through clonedEmployee1
+        // This will ONLY affect clonedEmployee1's department
+        clonedEmployee1D.getDepartment().setName("Marketing");
+        clonedEmployee1D.getDepartment().setDeptId(201);
+
+        logger.info("\nOriginal Employee after modifications: " + originalEmployeeD);
+        logger.info("Cloned Employee 1 after modifications: " + clonedEmployee1D);
+        logger.info("Cloned Employee 2 after modifications: " + clonedEmployee2D); // Shows no shared change
+
+        logger.info("\nAre original and cloned department objects the same?");
+        logger.info("Original.dept == Cloned1.dept: " + (originalEmployeeD.getDepartment() == clonedEmployee1D.getDepartment()));
+        logger.info("Cloned1.dept == Cloned2.dept: " + (clonedEmployee1D.getDepartment() == clonedEmployee2D.getDepartment()));
+
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
     }
 }

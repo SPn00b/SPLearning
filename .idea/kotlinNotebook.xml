@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="KotlinNotebookOptionsProvider">
+    <option name="extraJvmArguments">
+      <list>
+        <option value="-XX:+HeapDumpOnOutOfMemoryError" />
+        <option value="-XX:-OmitStackTraceInFastThrow" />
+        <option value="-XX:CICompilerCount=2" />
+        <option value="-XX:+IgnoreUnrecognizedVMOptions" />
+        <option value="-XX:+UseZGC" />
+        <option value="-XX:+ZGenerational" />
+        <option value="-XX:+AlwaysPreTouch" />
+        <option value="-XX:-ZUncommit" />
+        <option value="-XX:+UseLargePages" />
+      </list>
+    </option>
+    <option name="heapMaxLimitInMib" value="256" />
+    <option name="shouldLimitTypeHintsByActiveCell" value="true" />
+  </component>
+</project>
