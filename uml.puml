@@ -1,0 +1,589 @@
+@startuml
+class org.example.solid.Crow {
+- {static} Logger logger
++ void flying()
++ void makeSound()
++ void getHeight()
+}
+
+note left of org.example.solid.Crow::flying()
+ again 2 methods break the SRP in the child overriden class
+end note
+
+class org.example.solid.voilation.lsp.Penguin {
++ void fly()
+}
+
+class org.example.multithreading.ThreadTesting {
+~ Logger logger
+~ int count
++ void run()
+}
+
+
+class org.example.designpatterns.creational.BookBuilderDesignPattern {
+- String isbn
+- String title
+- String genre
+- String author
+- Year published
+- String description
+- <<Create>> BookBuilderDesignPattern(Builder)
++ String getIsbn()
++ String getTitle()
++ String getGenre()
++ String getAuthor()
++ Year getPublished()
++ String getDescription()
+}
+
+
+class org.example.designpatterns.creational.BookBuilderDesignPattern$Builder {
+- String isbn
+- String title
+- String genre
+- String author
+- Year published
+- String description
++ <<Create>> Builder(String,String)
++ Builder genre(String)
++ Builder author(String)
++ Builder published(Year)
++ Builder description(String)
++ BookBuilderDesignPattern build()
+}
+
+
+class org.example.designpatterns.creational.SingletonDesignPatternSynchronized {
+- {static} Logger logger
+- {static} SingletonDesignPatternSynchronized singletonDesignPattern
+- <<Create>> SingletonDesignPatternSynchronized()
++ {static} SingletonDesignPatternSynchronized getInstance()
++ {static} void printSingleton()
+}
+
+
+class org.example.designpatterns.structural.SquarePegAdaptorStructuralPattern {
+- double width
++ <<Create>> SquarePegAdaptorStructuralPattern(double)
++ double getWidth()
++ double getSquare()
+}
+
+
+abstract class org.example.solid.interfacesp.Bird {
+~ int hieght
+~ int weight
+~ int length
+~ int width
+~ String color
+}
+
+class org.example.designpatterns.creational.FDPPayPalFactory {
++ FDPPaymentGateway createPaymentGateway()
+}
+
+interface org.example.solid.voilation.BirdInterface {
+~ {static} String color
+~ {static} int weight
+~ {static} int height
+~ {static} int width
+~ {static} int length
++ void flying(org.example.solid.voilation.BirdInterface.birdType)
++ void makeSound(org.example.solid.voilation.BirdInterface.birdType)
+}
+note left of org.example.solid.voilation.BirdInterface::color
+ static (Same values for all classes inheriting this interface).
+end note
+
+
+enum org.example.solid.voilation.birdType {
++  PIEGON
++  CROW
++  SPARROW
++  DUCK
+}
+
+abstract class org.example.designpatterns.structural.ShapeBridge {
+# DrawingAPIBridge drawingAPI
+# <<Create>> ShapeBridge(DrawingAPIBridge)
++ {abstract}void draw()
+}
+
+
+interface org.example.solid.interfacesp.Fly {
++ void fly()
+}
+
+class org.example.designpatterns.structural.RadioBridge {
+- {static} Logger log
+- boolean on
+- int volume
+- int channel
++ boolean isEnabled()
++ void enable()
++ void disable()
++ int getVolume()
++ void setVolume(int)
++ int getChannel()
++ void setChannel(int)
++ void printStatus()
+}
+
+
+class org.example.solid.interfacesp.Crow {
+~ Logger logger
++ void fly()
+}
+
+
+class org.example.designpatterns.creational.SingletonDesignPattern {
+- {static} Logger logger
+- {static} SingletonDesignPattern singletonDesignPattern
+- <<Create>> SingletonDesignPattern()
++ {static} SingletonDesignPattern getInstance()
++ {static} void printSingleton()
+}
+
+
+class org.example.designpatterns.creational.EmployeePrototypeDeep {
+- int id
+- String name
+- DepartmentPrototypeDeep department
++ <<Create>> EmployeePrototypeDeep(int,String,DepartmentPrototypeDeep)
++ int getId()
++ void setId(int)
++ String getName()
++ void setName(String)
++ DepartmentPrototypeDeep getDepartment()
++ void setDepartment(DepartmentPrototypeDeep)
++ String toString()
++ Object clone()
+}
+note left of org.example.designpatterns.creational.EmployeePrototypeDeep::department
+ Reference type
+end note
+
+note left of org.example.designpatterns.creational.EmployeePrototypeDeep::getId()
+ Getters and Setters (same as before)
+end note
+note right of org.example.designpatterns.creational.EmployeePrototypeDeep::clone()
+
+     * Performs a deep copy.
+     * First, it does a shallow copy of Employee itself.
+     * Then, it explicitly clones the 'department' object to create a new, independent instance.
+     
+end note
+
+interface org.example.designpatterns.creational.CheckBoxFactoryDesignPattern {
+~ void paint()
+}
+
+class org.example.designpatterns.creational.DepartmentPrototypeShallow {
+- String name
+- int deptId
++ <<Create>> DepartmentPrototypeShallow(String,int)
++ String getName()
++ void setName(String)
++ int getDeptId()
++ void setDeptId(int)
++ String toString()
+}
+
+note left of org.example.designpatterns.creational.DepartmentPrototypeShallow::getName()
+ Getters and Setters
+end note
+
+class org.example.designpatterns.creational.FDPStripeGateway {
++ void processPayment(Payment)
++ void refundPayment(Payment)
+}
+
+class org.example.designpatterns.structural.CircleBridge {
+- int x
++ <<Create>> CircleBridge(int,int,int,DrawingAPIBridge)
++ void draw()
+}
+
+
+class org.example.designpatterns.creational.MacGUIAbstractFactoryDesignPattern {
+- {static} Logger logger
++ ButtonFactoryPattern createButton()
++ CheckBoxFactoryDesignPattern createCheckBox()
+}
+
+
+class org.example.designpatterns.creational.WindowsCheckBoxFactoryDesignPattern {
+- {static} Logger logger
++ void paint()
+}
+
+
+interface org.example.designpatterns.creational.FDPPaymentGateway {
+~ void processPayment(Payment)
+~ void refundPayment(Payment)
+}
+
+class org.example.designpatterns.creational.EmployeePrototypeShallow {
+- int id
+- String name
+- DepartmentPrototypeShallow department
++ <<Create>> EmployeePrototypeShallow(int,String,DepartmentPrototypeShallow)
++ int getId()
++ void setId(int)
++ String getName()
++ void setName(String)
++ DepartmentPrototypeShallow getDepartment()
++ void setDepartment(DepartmentPrototypeShallow)
++ String toString()
++ Object clone()
+}
+note left of org.example.designpatterns.creational.EmployeePrototypeShallow::department
+ Reference type
+end note
+
+note left of org.example.designpatterns.creational.EmployeePrototypeShallow::getId()
+ Getters and Setters
+end note
+note right of org.example.designpatterns.creational.EmployeePrototypeShallow::clone()
+
+     * Performs a shallow copy.
+     * Only primitive fields and references are copied.
+     * The 'department' object itself is NOT cloned, only its reference is copied.
+     
+end note
+
+class org.example.solid.voilation.lsp.Bird {
+~ Logger logger
++ void fly()
+}
+
+
+interface org.example.designpatterns.creational.ButtonFactoryPattern {
+~ {static} Logger logger
+~ void paint()
+}
+
+
+class org.example.designpatterns.structural.RoundHoleAdaptorStructuralPattern {
+- double radius
++ <<Create>> RoundHoleAdaptorStructuralPattern(double)
++ double getRadius()
++ boolean fits(RoundPegAdaptorStructuralPattern)
+}
+
+
+class org.example.designpatterns.creational.MacCheckBoxFactoryDesignPattern {
+- {static} Logger logger
++ void paint()
+}
+
+
+class org.example.designpatterns.creational.SQLSelectWithWhereClauseQueryBuilder {
+- List<String> selectClauses
+- List<String> fromClauses
+- List<String> whereClauses
+- <<Create>> SQLSelectWithWhereClauseQueryBuilder()
++ {static} SQLSelectWithWhereClauseQueryBuilder builder()
++ SQLSelectWithWhereClauseQueryBuilder withSelectClause(String)
++ SQLSelectWithWhereClauseQueryBuilder withFromClause(String)
++ SQLSelectWithWhereClauseQueryBuilder withWhereClause(String)
++ String build()
+}
+
+
+class org.example.designpatterns.structural.RoundPegAdaptorStructuralPattern {
+- double radius
++ <<Create>> RoundPegAdaptorStructuralPattern()
++ <<Create>> RoundPegAdaptorStructuralPattern(double)
++ double getRadius()
+}
+
+
+class org.example.designpatterns.structural.TVBridge {
+- {static} Logger log
+- boolean on
+- int volume
+- int channel
++ boolean isEnabled()
++ void enable()
++ void disable()
++ int getVolume()
++ void setVolume(int)
++ int getChannel()
++ void setChannel(int)
++ void printStatus()
+}
+
+
+class org.example.solid.lsp.Crow {
+~ Logger logger
+}
+note top of org.example.solid.lsp.Crow
+ Instead of using abstraction this could be solved using interface by using ISP principle in SOLID
+end note
+
+note left of org.example.solid.lsp.Crow::logger
+extends Bird
+end note
+
+class org.example.solid.lsp.Bird {
+~ Logger logger1
++ void fly()
+}
+
+
+interface org.example.designpatterns.structural.BridgeDevice {
+~ boolean isEnabled()
+~ void enable()
+~ void disable()
+~ int getVolume()
+~ void setVolume(int)
+~ int getChannel()
+~ void setChannel(int)
+~ void printStatus()
+}
+
+class org.example.designpatterns.creational.FDPPayPalGateway {
++ void processPayment(Payment)
++ void refundPayment(Payment)
+}
+
+class org.example.designpatterns.creational.WindowsGUIAbstractFactoryDesignPattern {
+- {static} Logger logger
++ ButtonFactoryPattern createButton()
++ CheckBoxFactoryDesignPattern createCheckBox()
+}
+
+
+class org.example.solid.voilation.Bird {
+- {static} Logger logger
+~ String color
+~ int weight
+~ int height
+~ int width
+~ int length
++ void flying(birdType)
++ void makeSound(birdType)
+}
+
+note left of org.example.solid.voilation.Bird::flying(birdType)
+ one for sounds
+end note
+
+enum org.example.solid.voilation.birdType {
++  PIEGON
++  CROW
++  SPARROW
++  DUCK
+}
+
+class org.example.designpatterns.creational.FDPPaymentProcessor {
+- FDPPaymentGateway paymentGateway
++ <<Create>> FDPPaymentProcessor(FDPPaymentGatewayFactory)
++ void processPayment(Payment)
++ void refundPayment(Payment)
+}
+
+
+class org.example.designpatterns.creational.BookWithoutBuilderDesignPattern {
+- String isbn
+- String title
+- String genre
+- String author
+- Year published
+- String description
++ <<Create>> BookWithoutBuilderDesignPattern()
++ <<Create>> BookWithoutBuilderDesignPattern(String,String,String,String,Year,String)
++ BookWithoutBuilderDesignPattern createObject(String,String,String,String,Year,String)
++ String getIsbn()
++ String getTitle()
++ String getGenre()
++ String getAuthor()
++ Year getPublished()
++ String getDescription()
+}
+
+
+class org.example.Main {
+- {static} Logger log
++ {static} void main(String[])
+}
+note top of org.example.Main
+ click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+end note
+
+
+
+class org.example.designpatterns.structural.SquarePegAdaptorAdapterStructuralPattern {
+- SquarePegAdaptorStructuralPattern peg
++ <<Create>> SquarePegAdaptorAdapterStructuralPattern(SquarePegAdaptorStructuralPattern)
++ double getRadius()
+}
+
+
+class org.example.designpatterns.creational.Payment {
+- String paymentMethod
+- double amount
+- String currency
++ <<Create>> Payment(String,double,String)
++ String getPaymentMethod()
++ double getAmount()
++ String getCurrency()
+}
+
+
+class org.example.solid.voilation.Crow {
+~ Logger logger
++ void flying(BirdInterface.birdType)
++ void makeSound(BirdInterface.birdType)
++ void getHeight()
+}
+
+note left of org.example.solid.voilation.Crow::getHeight()
+ We can access the variables declared in interface but not change them
+end note
+
+class org.example.dsa.recursion.Basic {
++ void recursion(int)
++ void printNumbers(int)
+}
+
+interface org.example.designpatterns.creational.GUIAbstractFactoryDesignPattern {
+~ ButtonFactoryPattern createButton()
+~ CheckBoxFactoryDesignPattern createCheckBox()
+}
+
+class org.example.designpatterns.structural.DrawingAPI2Bridge {
+- {static} Logger log
++ void drawCircle(int,int,int)
+}
+
+
+abstract class org.example.solid.AbstractBird {
+~ String color
+~ int weight
+~ int height
+~ int width
+~ int length
++ {abstract}void flying()
++ {abstract}void makeSound()
+}
+note left of org.example.solid.AbstractBird::color
+ Follows O principle in SOLID
+end note
+
+note left of org.example.solid.AbstractBird::flying()
+ again 2 methods break the SRP in the child overriden class
+end note
+
+enum org.example.solid.birdType {
++  PIEGON
++  CROW
++  SPARROW
++  DUCK
+}
+
+interface org.example.designpatterns.structural.DrawingAPIBridge {
+~ void drawCircle(int,int,int)
+}
+
+class org.example.designpatterns.creational.MacButtonFactoryPattern {
+~ Logger logger
++ void paint()
+}
+
+
+class org.example.designpatterns.structural.SquareBridge {
+- int x
++ <<Create>> SquareBridge(int,int,int,DrawingAPIBridge)
++ void draw()
+}
+
+
+abstract class org.example.solid.lsp.Flyable {
+~ Logger logger
++ {abstract}void fly()
+}
+
+
+class org.example.designpatterns.structural.DrawingAPI1Bridge {
+- {static} Logger log
++ void drawCircle(int,int,int)
+}
+
+
+class org.example.designpatterns.creational.WindowsButtonFactoryPattern {
+~ Logger logger
++ void paint()
+}
+
+
+class org.example.solid.lsp.Penguin {
+~ Logger logger
++ void swim()
+}
+
+
+class org.example.designpatterns.creational.DepartmentPrototypeDeep {
+- String name
+- int deptId
++ <<Create>> DepartmentPrototypeDeep(String,int)
++ String getName()
++ void setName(String)
++ int getDeptId()
++ void setDeptId(int)
++ String toString()
+# Object clone()
+}
+
+note left of org.example.designpatterns.creational.DepartmentPrototypeDeep::getName()
+ Getters and Setters
+end note
+note right of org.example.designpatterns.creational.DepartmentPrototypeDeep::clone()
+
+     * Performs a shallow copy of the Department itself.
+     * Since Department only has primitive and String (immutable) fields,
+     * this effectively acts as a deep copy for Department's internal state.
+     
+end note
+
+class org.example.designpatterns.creational.FDPStripeFactory {
++ FDPPaymentGateway createPaymentGateway()
+}
+
+interface org.example.designpatterns.creational.FDPPaymentGatewayFactory {
+~ FDPPaymentGateway createPaymentGateway()
+}
+
+
+
+org.example.solid.AbstractBird <|-- org.example.solid.Crow
+org.example.solid.voilation.lsp.Bird <|-- org.example.solid.voilation.lsp.Penguin
+org.example.multithreading.Runnable <|.. org.example.multithreading.ThreadTesting
+org.example.designpatterns.creational.BookBuilderDesignPattern +.. org.example.designpatterns.creational.BookBuilderDesignPattern$Builder
+org.example.solid.interfacesp.Fly <|.. org.example.solid.interfacesp.Bird
+org.example.designpatterns.creational.FDPPaymentGatewayFactory <|.. org.example.designpatterns.creational.FDPPayPalFactory
+org.example.designpatterns.structural.BridgeDevice <|.. org.example.designpatterns.structural.RadioBridge
+org.example.solid.interfacesp.Bird <|-- org.example.solid.interfacesp.Crow
+org.example.designpatterns.creational.Cloneable <|.. org.example.designpatterns.creational.EmployeePrototypeDeep
+org.example.designpatterns.creational.FDPPaymentGateway <|.. org.example.designpatterns.creational.FDPStripeGateway
+org.example.designpatterns.structural.ShapeBridge <|-- org.example.designpatterns.structural.CircleBridge
+org.example.designpatterns.creational.GUIAbstractFactoryDesignPattern <|.. org.example.designpatterns.creational.MacGUIAbstractFactoryDesignPattern
+org.example.designpatterns.creational.CheckBoxFactoryDesignPattern <|.. org.example.designpatterns.creational.WindowsCheckBoxFactoryDesignPattern
+org.example.designpatterns.creational.Cloneable <|.. org.example.designpatterns.creational.EmployeePrototypeShallow
+org.example.designpatterns.creational.CheckBoxFactoryDesignPattern <|.. org.example.designpatterns.creational.MacCheckBoxFactoryDesignPattern
+org.example.designpatterns.structural.BridgeDevice <|.. org.example.designpatterns.structural.TVBridge
+org.example.solid.lsp.Flyable <|-- org.example.solid.lsp.Bird
+org.example.designpatterns.creational.FDPPaymentGateway <|.. org.example.designpatterns.creational.FDPPayPalGateway
+org.example.designpatterns.creational.GUIAbstractFactoryDesignPattern <|.. org.example.designpatterns.creational.WindowsGUIAbstractFactoryDesignPattern
+org.example.designpatterns.structural.RoundPegAdaptorStructuralPattern <|-- org.example.designpatterns.structural.SquarePegAdaptorAdapterStructuralPattern
+org.example.solid.voilation.BirdInterface <|.. org.example.solid.voilation.Crow
+org.example.designpatterns.structural.DrawingAPIBridge <|.. org.example.designpatterns.structural.DrawingAPI2Bridge
+org.example.designpatterns.creational.ButtonFactoryPattern <|.. org.example.designpatterns.creational.MacButtonFactoryPattern
+org.example.designpatterns.structural.ShapeBridge <|-- org.example.designpatterns.structural.SquareBridge
+org.example.designpatterns.structural.DrawingAPIBridge <|.. org.example.designpatterns.structural.DrawingAPI1Bridge
+org.example.designpatterns.creational.ButtonFactoryPattern <|.. org.example.designpatterns.creational.WindowsButtonFactoryPattern
+org.example.designpatterns.creational.Cloneable <|.. org.example.designpatterns.creational.DepartmentPrototypeDeep
+org.example.designpatterns.creational.FDPPaymentGatewayFactory <|.. org.example.designpatterns.creational.FDPStripeFactory
+@enduml
