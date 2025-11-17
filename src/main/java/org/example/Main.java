@@ -3,6 +3,9 @@ package org.example;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.designpatterns.creational.*;
+import org.example.designpatterns.structural.*;
+import org.example.dsa.recursion.Basic;
+import org.example.multithreading.ThreadTesting;
 import org.example.solid.AbstractBird;
 import org.example.solid.lsp.Flyable;
 import org.example.solid.voilation.Bird;
@@ -11,6 +14,11 @@ import org.example.solid.voilation.Crow;
 import org.example.solid.voilation.lsp.Penguin;
 
 import java.time.Year;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -297,5 +305,149 @@ public class Main {
         logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
         logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
         logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
+
+//    Adaptor Structural Design Pattern
+
+        // Round fits round, no surprise.
+        RoundHoleAdaptorStructuralPattern hole = new RoundHoleAdaptorStructuralPattern(5);
+        RoundPegAdaptorStructuralPattern rpeg = new RoundPegAdaptorStructuralPattern(5);
+        if (hole.fits(rpeg)) {
+            logger.info("Round peg r5 fits round hole r5.");
+        }
+
+        SquarePegAdaptorStructuralPattern smallSqPeg = new SquarePegAdaptorStructuralPattern(2);
+        SquarePegAdaptorStructuralPattern largeSqPeg = new SquarePegAdaptorStructuralPattern(20);
+        // hole.fits(smallSqPeg); // Won't compile.
+
+        // Adapter solves the problem.
+        SquarePegAdaptorAdapterStructuralPattern smallSqPegAdapter = new SquarePegAdaptorAdapterStructuralPattern(smallSqPeg);
+        SquarePegAdaptorAdapterStructuralPattern largeSqPegAdapter = new SquarePegAdaptorAdapterStructuralPattern(largeSqPeg);
+        if (hole.fits(smallSqPegAdapter)) {
+            logger.info("Square peg w2 fits round hole r5.");
+        }
+        if (!hole.fits(largeSqPegAdapter)) {
+            logger.info("Square peg w20 does not fit into round hole r5.");
+        }
+
+
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
+
+//      Bridge Pattern
+
+        DrawingAPI1Bridge api1 = new DrawingAPI1Bridge();
+        DrawingAPIBridge api2 = new DrawingAPI2Bridge();
+
+        ShapeBridge circle = new CircleBridge(1, 2, 3, api1);
+        ShapeBridge square = new SquareBridge(4, 5, 6, api2);
+
+        circle.draw(); // Output: API1: Drawing circle at (1, 2) with radius 3
+        square.draw(); // Output: API2: Drawing square at (4, 5) with side length 6
+
+        Basic recursion = new Basic();
+        recursion.recursion(1);
+        recursion.printNumbers(5);
+
+        ThreadTesting threadTesting1 = new ThreadTesting();
+        Thread thread1 = new Thread(threadTesting1);
+        thread1.start();
+
+        try {
+            thread1.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        Thread thread2 = new Thread(threadTesting1);
+        Thread thread3 = new Thread(threadTesting1);
+
+        thread2.start();
+        thread3.start();
+
+        try {
+            thread2.join();
+            thread3.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        int numberOfVirtualThreads = 1000; // Define how many virtual threads you want to create
+
+        // --- Method 1: Using Thread.ofVirtual().start() directly ---
+        // This approach gives you direct control over each Thread object.
+        // It's suitable when you need to manage individual thread lifecycles.
+        logger.info("\n--- Method 1: Direct Virtual Thread Creation ---");
+        List<Thread> threads = new ArrayList<>();
+        long startTimeDirect = System.currentTimeMillis();
+
+        for (int i = 0; i < numberOfVirtualThreads; i++) {
+            // Create a new instance of ThreadTesting for each virtual thread.
+            // This ensures each thread has its own 'count' variable.
+            ThreadTesting task = new ThreadTesting();
+
+            // Create and start a new virtual thread, giving it a custom name.
+            // The 'task' (which implements Runnable) will be executed by this virtual thread.
+            Thread virtualThread = Thread.ofVirtual()
+                    .name("my-virtual-thread-" + i) // Assign a descriptive name
+                    .start(task); // Start the virtual thread
+            threads.add(virtualThread); // Add to list to wait for completion later
+        }
+
+        // Wait for all directly created virtual threads to complete their execution.
+        // The 'join()' method blocks the main thread until the virtual thread finishes.
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        long endTimeDirect = System.currentTimeMillis();
+        logger.info("Method 1: All " + numberOfVirtualThreads + " virtual threads completed in " + (endTimeDirect - startTimeDirect) + " ms.");
+
+
+        // --- Method 2: Using Executors.newVirtualThreadPerTaskExecutor() (Recommended) ---
+        // This is generally the preferred way when you have a collection of tasks to run concurrently,
+        // as it leverages the ExecutorService framework for easier management.
+        logger.info("\n--- Method 2: Virtual Threads via ExecutorService ---");
+        long startTimeExecutor = System.currentTimeMillis();
+
+        // Executors.newVirtualThreadPerTaskExecutor() creates an ExecutorService
+        // where each submitted task runs on a new virtual thread.
+        // The try-with-resources statement ensures that the executor is properly closed
+        // (which for this type of executor means waiting for all submitted tasks to complete).
+        try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            List<Future<?>> futures = new ArrayList<>();
+            for (int i = 0; i < numberOfVirtualThreads; i++) {
+                // Create a new instance of ThreadTesting for each task submitted to the executor.
+                ThreadTesting task = new ThreadTesting();
+                // Submit the Runnable task to the executor.
+                // The executor will create a new virtual thread for this task and run it.
+                futures.add(executor.submit(task));
+            }
+
+            // Optionally, wait for all tasks submitted to the executor to complete.
+            // The 'try-with-resources' block for the executor handles this implicitly on close,
+            // but if you needed to explicitly wait for individual tasks or check their status,
+            // you would iterate through 'futures' and call 'future.get()'.
+            // For this example, the implicit waiting of the try-with-resources is sufficient.
+            for (Future<?> future : futures) {
+                future.get(); // Blocks until the task completes
+            }
+
+        } catch (Exception e) {
+            logger.error("An error occurred with the ExecutorService: " + e.getMessage());
+            e.printStackTrace();
+        }
+        long endTimeExecutor = System.currentTimeMillis();
+        logger.info("Method 2: All " + numberOfVirtualThreads + " virtual threads (Executor) completed in " + (endTimeExecutor - startTimeExecutor) + " ms.");
+
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
+
+        logger.info("\nApplication finished.");
     }
 }

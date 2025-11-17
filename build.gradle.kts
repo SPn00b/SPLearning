@@ -9,6 +9,21 @@ repositories {
     mavenCentral()
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
+tasks.withType<JavaCompile>().configureEach {
+    options.release.set(21)
+}
+
+tasks.wrapper {
+    gradleVersion = "9.20"
+}
+
+
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -16,7 +31,7 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-core:2.24.3")
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-    implementation("org.apache.commons:commons-lang3:3.17.0")
+    implementation("org.apache.commons:commons-lang3:3.18.0")
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
     implementation("org.apache.commons:commons-collections4:4.5.0")
