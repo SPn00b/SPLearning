@@ -2,6 +2,8 @@ package org.example;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.collection.map.HashMapWithSizeCheck;
+import org.example.collection.map.HashMapWithSizeCheckCustomHashCode;
 import org.example.designpatterns.creational.*;
 import org.example.designpatterns.structural.*;
 import org.example.dsa.recursion.Basic;
@@ -12,9 +14,12 @@ import org.example.solid.voilation.Bird;
 import org.example.solid.voilation.BirdInterface;
 import org.example.solid.voilation.Crow;
 import org.example.solid.voilation.lsp.Penguin;
+import org.example.utils.RandomUtil;
 
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -443,6 +448,94 @@ public class Main {
         }
         long endTimeExecutor = System.currentTimeMillis();
         logger.info("Method 2: All " + numberOfVirtualThreads + " virtual threads (Executor) completed in " + (endTimeExecutor - startTimeExecutor) + " ms.");
+
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
+
+        HashMapWithSizeCheck hashMapWithSizeCheck1 = new HashMapWithSizeCheck("Koyla", "Kali");
+        HashMapWithSizeCheck hashMapWithSizeCheck2 = new HashMapWithSizeCheck("Koyla", "Kali");
+        HashMapWithSizeCheck hashMapWithSizeCheck3 = new HashMapWithSizeCheck("Koyla", "Kali");
+
+        HashMap<String, String> hashMap1 = new HashMap<>();
+        hashMap1.put(hashMapWithSizeCheck1.getFirstName(), hashMapWithSizeCheck1.getLastName());
+        hashMap1.put(hashMapWithSizeCheck2.getFirstName(), hashMapWithSizeCheck2.getLastName());
+        hashMap1.put(hashMapWithSizeCheck3.getFirstName(), hashMapWithSizeCheck3.getLastName());
+
+        logger.info("Size of HashMap<String, String> with default PoJo is :"+ hashMap1.size());
+        //        Size is 1 as key is same Koyla hence its replaced
+
+        HashMapWithSizeCheck hashMapWithSizeCheck4 = new HashMapWithSizeCheck("Koyla1", "Kali1");
+        HashMapWithSizeCheck hashMapWithSizeCheck5 = new HashMapWithSizeCheck("Koyla1", "Kali1");
+        HashMapWithSizeCheck hashMapWithSizeCheck6 = new HashMapWithSizeCheck("Koyla2", "Kali2");
+
+        HashMap<String, String> hashMap2 = new HashMap<>();
+        hashMap2.put(hashMapWithSizeCheck4.getFirstName(), hashMapWithSizeCheck4.getLastName());
+        hashMap2.put(hashMapWithSizeCheck5.getFirstName(), hashMapWithSizeCheck5.getLastName());
+        hashMap2.put(hashMapWithSizeCheck6.getFirstName(), hashMapWithSizeCheck6.getLastName());
+
+        logger.info("Size of HashMap<String, String> with default PoJo is :"+ hashMap2.size());
+        //        Size is 2 as key is same Koyla1 hence its replaced
+
+        logger.info("hashCode of hashMapWithSizeCheck4 "+ hashMapWithSizeCheck4.hashCode() +" hashMapWithSizeCheck5 "+hashMapWithSizeCheck5.hashCode());
+        logger.info("equals of hashMapWithSizeCheck4 and hashMapWithSizeCheck5 "+hashMapWithSizeCheck4.equals(hashMapWithSizeCheck5));
+//        logger.info("= of hashMapWithSizeCheck4 and hashMapWithSizeCheck5 "+hashMapWithSizeCheck4 == hashMapWithSizeCheck5);
+        logger.info("hashCode of hashMapWithSizeCheck4.FirstName "+ hashMapWithSizeCheck4.getFirstName().hashCode() +" hashMapWithSizeCheck5.FirstName "+hashMapWithSizeCheck5.getFirstName().hashCode());
+        logger.info("equals of hashMapWithSizeCheck4.FirstName and hashMapWithSizeCheck5.FirstName "+hashMapWithSizeCheck4.getFirstName().equals(hashMapWithSizeCheck5.getFirstName()));
+
+
+        HashMap<HashMapWithSizeCheck, String> hashMap3 = new HashMap<>();
+
+        hashMap3.put(hashMapWithSizeCheck1, hashMapWithSizeCheck1.getFirstName());
+        hashMap3.put(hashMapWithSizeCheck2, hashMapWithSizeCheck2.getFirstName());
+        hashMap3.put(hashMapWithSizeCheck3, hashMapWithSizeCheck3.getFirstName());
+
+        logger.info("Size of HashMap<HashMapWithSizeCheck, String> with default PoJo is :"+ hashMap3.size());
+
+
+        HashMap<HashMapWithSizeCheckCustomHashCode, String> hashMap4 = new HashMap<>();
+
+        HashMapWithSizeCheckCustomHashCode hashMapWithSizeCheckCustomHashCode1 = new HashMapWithSizeCheckCustomHashCode("Koyla", "Kali");
+        HashMapWithSizeCheckCustomHashCode hashMapWithSizeCheckCustomHashCode2 = new HashMapWithSizeCheckCustomHashCode("Koyla", "Kali");
+
+        hashMap4.put(hashMapWithSizeCheckCustomHashCode1, hashMapWithSizeCheckCustomHashCode1.getFirstName());
+        hashMap4.put(hashMapWithSizeCheckCustomHashCode2, hashMapWithSizeCheckCustomHashCode2.getFirstName());
+
+        logger.info("Size of HashMap<HashMapWithSizeCheckCustomHashCode, String> is :"+ hashMap4.size());
+
+
+        HashMapWithSizeCheckCustomHashCode hashMapWithSizeCheckCustomHashCode3 = new HashMapWithSizeCheckCustomHashCode("Koyla", "Kali");
+        HashMapWithSizeCheckCustomHashCode hashMapWithSizeCheckCustomHashCode4 = new HashMapWithSizeCheckCustomHashCode("Koyla", "Kali1");
+
+        hashMap4.put(hashMapWithSizeCheckCustomHashCode3, hashMapWithSizeCheckCustomHashCode3.getFirstName());
+        hashMap4.put(hashMapWithSizeCheckCustomHashCode4, hashMapWithSizeCheckCustomHashCode4.getFirstName());
+
+        logger.info("Size of HashMap<HashMapWithSizeCheckCustomHashCode, String> is :"+ hashMap4.size());
+
+
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
+
+
+        LinkedList<String> stringLinkedList1 = new LinkedList<>();
+
+        RandomUtil randomUtil = new RandomUtil();
+
+        for (int i = 0; i < 1165608; i++) {
+            stringLinkedList1.add(randomUtil.randomString(50, 75));
+        }
+
+        logger.info("Elemets in List are "+stringLinkedList1.size());
+
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
+
+        stringLinkedList1 = null;
+        stringLinkedList1 = randomUtil.generateParallelRandomStrings(1165608, 50, 75);
+
+        logger.info("Elemets in List are "+stringLinkedList1.size());
 
         logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
         logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
