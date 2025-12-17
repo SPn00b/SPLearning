@@ -6,7 +6,11 @@ import org.example.collection.map.HashMapWithSizeCheck;
 import org.example.collection.map.HashMapWithSizeCheckCustomHashCode;
 import org.example.designpatterns.creational.*;
 import org.example.designpatterns.structural.*;
+import org.example.dsa.prefix.sum.FindPivotIndex;
+import org.example.dsa.prefix.sum.MinimumValueGetPositiveStepByStepSum;
+import org.example.dsa.prefix.sum.RangeSumQuery;
 import org.example.dsa.recursion.Basic;
+import org.example.dsa.twosum.*;
 import org.example.multithreading.ThreadTesting;
 import org.example.solid.AbstractBird;
 import org.example.solid.lsp.Flyable;
@@ -522,7 +526,8 @@ public class Main {
 
         RandomUtil randomUtil = new RandomUtil();
 
-        for (int i = 0; i < 1165608; i++) {
+//        for (int i = 0; i < 1165608; i++) {
+        for (int i = 0; i < 99999; i++) {
             stringLinkedList1.add(randomUtil.randomString(50, 75));
         }
 
@@ -533,9 +538,82 @@ public class Main {
         logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
 
         stringLinkedList1 = null;
-        stringLinkedList1 = randomUtil.generateParallelRandomStrings(1165608, 50, 75);
+//        stringLinkedList1 = randomUtil.generateParallelRandomStrings(1165608, 50, 75);
+        stringLinkedList1 = randomUtil.generateParallelRandomStrings(99999, 50, 75);
 
         logger.info("Elemets in List are "+stringLinkedList1.size());
+
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
+
+        stringLinkedList1 = null;
+
+        logger.info("Start of prefix sum questions");
+
+        RangeSumQuery rangeSumQuery = new RangeSumQuery(new int[] {-2, 0, 3, -5, 2, -1});
+        logger.info("0 2 is 1 : "+rangeSumQuery.sumRange(0, 2));
+        logger.info("2 5 is -1 : "+rangeSumQuery.sumRange(2, 5));
+        logger.info("0 5 is -3 : "+rangeSumQuery.sumRange(0, 5));
+
+        FindPivotIndex findPivotIndex = new FindPivotIndex();
+        logger.info("Pivot index is 3 : " + findPivotIndex.pivotIndex(new int[] {1,7,3,6,5,6}));
+        logger.info("Pivot index is -1 : " + findPivotIndex.pivotIndex(new int[] {1,2,3}));
+        logger.info("Pivot index is 0 : " + findPivotIndex.pivotIndex(new int[] {2,1,-1}));
+
+        RemoveDuplicatesSortedArray removeDuplicatesSortedArray = new RemoveDuplicatesSortedArray();
+        logger.info("Sorted Array Remove Duplicate : "+ removeDuplicatesSortedArray.removeDuplicates(new int[] {1,1,2}));
+        logger.info("Sorted Array Remove Duplicate : "+ removeDuplicatesSortedArray.removeDuplicates(new int[] {0,0,1,1,1,2,2,3,3,4}));
+
+        RemoveElement removeElement = new RemoveElement();
+        logger.info("Remove Element : "+ removeElement.removeElement(new int[] {3,2,2,3}, 3));
+        logger.info("Remove Element : "+ removeElement.removeElement(new int[] {0,1,2,2,3,0,4,2}, 2));
+
+        FindIndexFirstOccurrenceString findIndexFirstOccurrenceString = new FindIndexFirstOccurrenceString();
+        logger.info("findIndexFirstOccurrenceString : -1 "+ findIndexFirstOccurrenceString.strStr("leetcode", "leeto"));
+        logger.info("findIndexFirstOccurrenceString : 0 "+ findIndexFirstOccurrenceString.strStr("sadbutsad", "sad"));
+        logger.info("findIndexFirstOccurrenceString : 4 "+ findIndexFirstOccurrenceString.strStr("mississippi", "issipi"));
+
+        MinimumValueGetPositiveStepByStepSum minimumValueGetPositiveStepByStepSum = new MinimumValueGetPositiveStepByStepSum();
+        logger.info("MinimumValueGetPositiveStepByStepSum : 5 "+ minimumValueGetPositiveStepByStepSum.minStartValue(new int[] {-3,2,-3,4,2}));
+        logger.info("MinimumValueGetPositiveStepByStepSum : 1 "+ minimumValueGetPositiveStepByStepSum.minStartValue(new int[] {1, 2}));
+        logger.info("MinimumValueGetPositiveStepByStepSum : 5 "+ minimumValueGetPositiveStepByStepSum.minStartValue(new int[] {1, -2, -3}));
+
+        MoveZeroes moveZeroes = new MoveZeroes();
+        logger.info("moveZeroes : ");
+        moveZeroes.moveZeroes(new int[] {0,1,0,3,12});
+        logger.info("moveZeroes : ");
+        moveZeroes.moveZeroes(new int[] {0});
+        logger.info("moveZeroes : ");
+        moveZeroes.moveZeroes(new int[] {4,0,0,0,0,1,2,3,4,5,6,0,0,0,0,0,1,2,5,0,2,0,0,0,2,5,4,0,0,0,0});
+
+        SortColors  sortColors = new SortColors();
+        logger.info("SortColors : ");
+        sortColors.sortColors(new int[] {2,0,2,1,1,0});
+        logger.info("SortColors : ");
+        sortColors.sortColors(new int[] {2,0,1});
+
+        TwoSum twoSum = new TwoSum();
+        logger.info("TwoSum : ");
+        twoSum.twoSum(new int[] {3,2,4}, 6);
+
+        MergeSortedArrays mergeSortedArrays = new MergeSortedArrays();
+        logger.info("MergeSortedArrays : ");
+        mergeSortedArrays.merge(new int[] {1,2,3,0,0,0}, 6, new int[] {2,5,6}, 3);
+
+        PalindromeAlphaNumricConversion palindromeAlphaNumricConversion = new PalindromeAlphaNumricConversion();
+        logger.info("PalindromeAlphaNumricConversion is true : "+ palindromeAlphaNumricConversion.isPalindrome("A man, a plan, a canal: Panama"));
+
+        MedianTwoSortedArray medianTwoSortedArray = new MedianTwoSortedArray();
+        logger.info("medianTwoSortedArray is 0.00000 : "+ medianTwoSortedArray.findMedianSortedArrays(new int[] {0,0}, new int[] {0,0}));
+        logger.info("medianTwoSortedArray is 9.00000 : "+ medianTwoSortedArray.findMedianSortedArrays(new int[] {1,2,3,4,5}, new int[] {6,7,8,9,10,11,12,13,14,15,16,17}));
+
+        ReverseVowelString reverseVowelString = new ReverseVowelString();
+        logger.info("reverseVowelString IceCreAm "+ reverseVowelString.reverseVowels("IceCreAm").equals("AceCreIm"));
+        logger.info("reverseVowelString leetcode "+ reverseVowelString.reverseVowels("leetcode").equals("leotcede"));
+
+        IntersectionTwoArrays  intersectionTwoArrays = new IntersectionTwoArrays();
+        logger.info("intersectionTwoArrays 2 : "+ intersectionTwoArrays.intersection(new int[] {1,2,2,1}, new int[] {2,2}));
 
         logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
         logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
