@@ -10,7 +10,7 @@ import org.example.dsa.prefix.sum.FindPivotIndex;
 import org.example.dsa.prefix.sum.MinimumValueGetPositiveStepByStepSum;
 import org.example.dsa.prefix.sum.RangeSumQuery;
 import org.example.dsa.recursion.Basic;
-import org.example.dsa.twosum.*;
+import org.example.dsa.twopointer.*;
 import org.example.multithreading.ThreadTesting;
 import org.example.solid.AbstractBird;
 import org.example.solid.lsp.Flyable;
@@ -614,6 +614,40 @@ public class Main {
 
         IntersectionTwoArrays  intersectionTwoArrays = new IntersectionTwoArrays();
         logger.info("intersectionTwoArrays 2 : "+ intersectionTwoArrays.intersection(new int[] {1,2,2,1}, new int[] {2,2}));
+
+        IntersectionTwoArraysII intersectionTwoArraysII = new IntersectionTwoArraysII();
+        logger.info("intersectionTwoArraysII [2,2] " + intersectionTwoArraysII.intersect(new int[] {1,2,2,1}, new int[] {2,2}));
+        logger.info("intersectionTwoArraysII [4,9] " + intersectionTwoArraysII.intersect(new int[] {4,9,5}, new int[] {9,4,9,8,4}));
+
+        IsSubsequence isSubsequence = new IsSubsequence();
+        logger.info("isSubsequence true "+ isSubsequence.isSubsequence("abc", "ahbgdc"));
+        logger.info("isSubsequence false "+ isSubsequence.isSubsequence("axc", "ahbgdc"));
+        logger.info("isSubsequence false "+ isSubsequence.isSubsequence("abbc", "ahbdc"));
+
+        //  cheating by using Arrays.sort()
+        AssignCookies assignCookies = new AssignCookies();
+        logger.info("assignCookies "+assignCookies.findContentChildren(new int[] {1,2,3},  new int[] {1,1}));
+        logger.info("assignCookies "+assignCookies.findContentChildren(new int[] {1,2},  new int[] {1,2, 3}));
+
+        MaximumSumSubarrayKElements  maximumSumSubarrayKElements = new MaximumSumSubarrayKElements();
+        logger.info("maximumSumSubarrayKElements 6 "+ maximumSumSubarrayKElements.maximumSubarraySum(new int[] {5, 2, -1, 0, 3}, 3));
+        logger.info("maximumSumSubarrayKElements 39 "+ maximumSumSubarrayKElements.maximumSubarraySum(new int[] {1, 4, 2, 10, 23, 3, 1, 0, 20}, 4));
+
+        MaximumSumDistinctSubarrayKElements maximumSumDistinctSubarrayKElements = new MaximumSumDistinctSubarrayKElements();
+        logger.info("maximumSumDistinctSubarrayKElements 15 "+maximumSumDistinctSubarrayKElements.maximumSubarraySum(new int[] {1,5,4,2,9,9,9}, 3));
+        logger.info("maximumSumDistinctSubarrayKElements 0 "+maximumSumDistinctSubarrayKElements.maximumSubarraySum(new int[] {4,4,4}, 3));
+        logger.info("maximumSumDistinctSubarrayKElements 5 "+maximumSumDistinctSubarrayKElements.maximumSubarraySum(new int[] {5,1,3}, 1));
+
+        SmallestWindowContaining012 smallestWindowContaining012 = new SmallestWindowContaining012();
+        logger.info("smallestWindowContaining012 3 "+smallestWindowContaining012.smallestWindow("120102012"));
+        logger.info("smallestWindowContaining012 3 "+smallestWindowContaining012.smallestWindow("102"));
+        logger.info("smallestWindowContaining012 -1 "+smallestWindowContaining012.smallestWindow("111"));
+
+        CheckPermutationPatternSubstring  checkPermutationPatternSubstring = new CheckPermutationPatternSubstring();
+        logger.info("checkPermutationPatternSubstring true "+ checkPermutationPatternSubstring.permutationPattern("geeks", "eke"));
+        logger.info("checkPermutationPatternSubstring false "+ checkPermutationPatternSubstring.permutationPattern("geeks", "ab"));
+
+
 
         logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
         logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");

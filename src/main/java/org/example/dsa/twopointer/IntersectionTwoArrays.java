@@ -1,4 +1,4 @@
-package org.example.dsa.twosum;
+package org.example.dsa.twopointer;
 
 import java.util.HashSet;
 

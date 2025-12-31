@@ -1,4 +1,4 @@
-package org.example.dsa.twosum;
+package org.example.dsa.twopointer;
 
 public class RemoveElement {
     public int removeElement(int[] nums, int val) {

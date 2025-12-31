@@ -1,4 +1,4 @@
-package org.example.dsa.twosum;
+package org.example.dsa.twopointer;
 
 public class SortColors {
     public void sortColors(int[] nums) {
