@@ -647,7 +647,16 @@ public class Main {
         logger.info("checkPermutationPatternSubstring true "+ checkPermutationPatternSubstring.permutationPattern("geeks", "eke"));
         logger.info("checkPermutationPatternSubstring false "+ checkPermutationPatternSubstring.permutationPattern("geeks", "ab"));
 
+        RemoveAllConsecutiveDuplicatesString removeAllConsecutiveDuplicatesString = new RemoveAllConsecutiveDuplicatesString();
+        logger.info("removeAllConsecutiveDuplicatesString geksforgeks "+ removeAllConsecutiveDuplicatesString.removeDuplicates("geeksforgeeks"));
+        logger.info("removeAllConsecutiveDuplicatesString abca "+ removeAllConsecutiveDuplicatesString.removeDuplicates("aabcca"));
+        logger.info("removeAllConsecutiveDuplicatesString a "+ removeAllConsecutiveDuplicatesString.removeDuplicates("aaa"));
+        logger.info("removeAllConsecutiveDuplicatesString ba "+ removeAllConsecutiveDuplicatesString.removeDuplicates("baaaa"));
+        logger.info("removeAllConsecutiveDuplicatesString ab "+ removeAllConsecutiveDuplicatesString.removeDuplicates("aaaab"));
 
+        MaximumSumSubarraySumLessThanOrEqualToGivenSum maximumSumSubarraySumLessThanOrEqualToGivenSum = new MaximumSumSubarraySumLessThanOrEqualToGivenSum();
+        logger.info("maximumSumSubarraySumLessThanOrEqualToGivenSum 10 " + maximumSumSubarraySumLessThanOrEqualToGivenSum.maximumSumSubarrayPrefixSum(new int[] {1, 2, 3, 4, 5}, 11));
+        logger.info("maximumSumSubarraySumLessThanOrEqualToGivenSum 6 " + maximumSumSubarraySumLessThanOrEqualToGivenSum.maximumSumSubarrayPrefixSum(new int[] {2, 4, 6, 8, 10}, 11));
 
         logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
         logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
