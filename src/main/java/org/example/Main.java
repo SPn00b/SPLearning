@@ -6,6 +6,8 @@ import org.example.collection.map.HashMapWithSizeCheck;
 import org.example.collection.map.HashMapWithSizeCheckCustomHashCode;
 import org.example.designpatterns.creational.*;
 import org.example.designpatterns.structural.*;
+import org.example.dsa.linkedlist.LinkedListCallie;
+import org.example.dsa.linkedlist.LinkedListNode;
 import org.example.dsa.prefix.sum.FindPivotIndex;
 import org.example.dsa.prefix.sum.MinimumValueGetPositiveStepByStepSum;
 import org.example.dsa.prefix.sum.RangeSumQuery;
@@ -657,6 +659,9 @@ public class Main {
         MaximumSumSubarraySumLessThanOrEqualToGivenSum maximumSumSubarraySumLessThanOrEqualToGivenSum = new MaximumSumSubarraySumLessThanOrEqualToGivenSum();
         logger.info("maximumSumSubarraySumLessThanOrEqualToGivenSum 10 " + maximumSumSubarraySumLessThanOrEqualToGivenSum.maximumSumSubarrayPrefixSum(new int[] {1, 2, 3, 4, 5}, 11));
         logger.info("maximumSumSubarraySumLessThanOrEqualToGivenSum 6 " + maximumSumSubarraySumLessThanOrEqualToGivenSum.maximumSumSubarrayPrefixSum(new int[] {2, 4, 6, 8, 10}, 11));
+
+        LinkedListCallie linkedListCallie = new LinkedListCallie();
+        linkedListCallie.singlyLinkedList();
 
         logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
         logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
