@@ -1,7 +1,5 @@
-package org.example.dsa.linkedlist;
+package org.example.dsa.collection.linkedlist;
 
-
-import java.util.LinkedList;
 
 public class LinkedListNode {
     public String data;

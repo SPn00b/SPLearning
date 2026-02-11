@@ -6,8 +6,8 @@ import org.example.collection.map.HashMapWithSizeCheck;
 import org.example.collection.map.HashMapWithSizeCheckCustomHashCode;
 import org.example.designpatterns.creational.*;
 import org.example.designpatterns.structural.*;
-import org.example.dsa.linkedlist.LinkedListCallie;
-import org.example.dsa.linkedlist.LinkedListNode;
+import org.example.dsa.collection.linkedlist.LinkedListCallie;
+import org.example.dsa.collection.stack.StackUsingArray;
 import org.example.dsa.prefix.sum.FindPivotIndex;
 import org.example.dsa.prefix.sum.MinimumValueGetPositiveStepByStepSum;
 import org.example.dsa.prefix.sum.RangeSumQuery;
@@ -662,6 +662,43 @@ public class Main {
 
         LinkedListCallie linkedListCallie = new LinkedListCallie();
         linkedListCallie.singlyLinkedList();
+
+        logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
+        logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");
+        logger.info("free memory: " + Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB");
+
+        StackUsingArray stackUsingArray = new StackUsingArray(10);
+        stackUsingArray.push(1);
+        stackUsingArray.push(2);
+        stackUsingArray.push(3);
+        stackUsingArray.push(4);
+        stackUsingArray.push(5);
+        stackUsingArray.push(6);
+        stackUsingArray.push(7);
+        stackUsingArray.push(8);
+        stackUsingArray.push(9);
+        stackUsingArray.push(10);
+        stackUsingArray.push(11);
+        stackUsingArray.printStack();
+        logger.info("Stack isFull "+stackUsingArray.isFull());
+
+        logger.info("Stack peek "+stackUsingArray.peek());
+        logger.info("Stack pop "+stackUsingArray.pop());
+        logger.info("Stack pop "+stackUsingArray.pop());
+        logger.info("Stack pop "+stackUsingArray.pop());
+        logger.info("Stack pop "+stackUsingArray.pop());
+        logger.info("Stack pop "+stackUsingArray.pop());
+        logger.info("Stack pop "+stackUsingArray.pop());
+        logger.info("Stack pop "+stackUsingArray.pop());
+        logger.info("Stack pop "+stackUsingArray.pop());
+        logger.info("Stack pop "+stackUsingArray.pop());
+        logger.info("Stack pop "+stackUsingArray.pop());
+        logger.info("Stack pop "+stackUsingArray.pop());
+        logger.info("Stack pop "+stackUsingArray.pop());
+        logger.info("Stack pop "+stackUsingArray.pop());
+        logger.info("Stack peek "+stackUsingArray.peek());
+        logger.info("Stack isEmpty "+stackUsingArray.isEmpty());
+
 
         logger.info("Xmx: " + Runtime.getRuntime().maxMemory() / (1024 * 1024) + " MB");
         logger.info("current memory: " + Runtime.getRuntime().totalMemory() / (1024 * 1024) + " MB");

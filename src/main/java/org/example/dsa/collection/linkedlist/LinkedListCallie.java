@@ -1,4 +1,4 @@
-package org.example.dsa.linkedlist;
+package org.example.dsa.collection.linkedlist;
 
 public class LinkedListCallie {
     public static void singlyLinkedList() {
